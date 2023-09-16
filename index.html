@@ -1,34 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Upload file with fetch API</h1>
-    <form class="form" id="myForm">
-        <input type="file" name="inpFile" id="inpFile"><br>
-        <button type="submit">Upload FILE</button>
+<html>
+  <head>
+    <base target="_top">
+    <title>Upload file</title>
+  </head>
+  <body>
+    <h1>File Upload</h1>
+    <form>
+      <input type="file" name="myfile">
+      <br>
+      <br>
+      <input type="button" id="submitBtn" value="upload Files"></input>
+      <label id="resp"></label>
+      </input>
     </form>
 
     <script>
-        const myForm =document.getElementById("myForm");
-        const inpFile =document.getElementById("inpFile");
-
-        myForm.addEventListener("submit", e =>{
-            e.preventDefault();
-
-            const endpoint ="upload.php";
-            const formData = new FormData();
-
-            formData.append("inpFile", inpFile.file[0]);
-
-            fetch(endpoint,{
-                method: "post",
-                body: formData
-            }).catch(console.error);
-        })
+    document.getElementById('submitBtn').addEventListener('click',
+    function(e){
+        google.script.run.withSuccessHandler(onSuccess).uploadFiles(this.parentNode)
+    })
+    
+    function onSuccess(data){
+      document.getElementById('resp').innerHTML = "File upload to tha path";
+    }
     </script>
-</body>
+    
+  </body>
 </html>
